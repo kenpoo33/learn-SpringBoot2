@@ -1,0 +1,34 @@
+spring:
+  messages:
+    basename: classpath:/messages
+    cache-duration: -1
+    encoding: UTF-8
+  datasource:
+    url: jdbc:mysql://localhost:3306/sb2?autoReconnect=true&useSSL=false
+    username: app01
+    password: password
+    driverClassName: com.mysql.jdbc.Driver
+  session:
+    store-type: jdbc
+    jdbc:
+      schema: classpath:org/springframework/session/jdbc/schema-mysql.sql
+      initialize-schema: always
+      table-name: SPRING_SESSION
+mybatis:
+  check-config-location: true
+  config-location: classpath:/mybatis/mybatis-config.xml
+logging:
+   file: logs/myapp.log
+   level:
+       org.springframework.web: INFO
+       org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+server:
+  tomcat:
+       accesslog:
+           directory: logs
+           enabled: true
+           rotate: true
+           pattern: combined
+  servlet:
+    contextPath: /myapp
+    

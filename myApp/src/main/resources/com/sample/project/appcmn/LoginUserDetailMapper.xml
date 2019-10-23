@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.project.appcmn.LoginUserDetailMapper">
+    <select id="select001" resultType="com.sample.project.appcmn.LoginUserDetailDomain">
+      SELECT
+          IT.ID          AS LOGIN_ID
+        , IT.NAME        AS LOGIN_NAME
+        , PT.ID_PASSWD   AS LOGIN_PASSWD
+      FROM
+        SB2.ID_TBL IT
+        INNER JOIN SB2.PASSWD_TBL PT
+           ON  IT.ID = PT.ID
+      WHERE
+        IT.ID = #{arg0}
+    </select>
+    <select id="select002" resultType="string">
+      SELECT
+        IRT.ROLE_CD       AS LOGIN_ROLE_CD
+      FROM
+        SB2.ID_ROLE_TBL IRT
+      WHERE
+        IRT.ID = #{arg0}
+      ORDER BY
+        IRT.ROLE_CD
+    </select>
+    <select id="select003" resultType="string">
+      SELECT
+          DISTINCT RKT.KENGEN_CD    AS LOGIN_KENGEN_CD
+      FROM
+        SB2.ID_TBL IT
+        LEFT OUTER JOIN SB2.ID_ROLE_TBL IRT
+          ON IT.ID = IRT.ID
+        LEFT OUTER JOIN SB2.ROLE_KGN_TBL RKT
+          ON IRT.ROLE_CD = RKT.ROLE_CD
+      WHERE
+        IT.ID = #{arg0}
+      ORDER BY
+          RKT.KENGEN_CD
+    </select>
+</mapper>

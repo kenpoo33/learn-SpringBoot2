@@ -1,0 +1,48 @@
+buildscript {
+  ext {
+    springBootVersion = '2.0.1.RELEASE'
+  }
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile('org.springframework.boot:spring-boot-starter-security')
+  compile('org.springframework.boot:spring-boot-starter-web')
+  compile('org.springframework.boot:spring-boot-starter-validation')
+  compile('org.springframework.boot:spring-boot-starter-mail')
+  compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1')
+  compile('org.springframework.session:spring-session-jdbc:2.0.4.RELEASE')
+  compile('org.apache.commons:commons-lang3:3.7')
+  compile('org.apache.poi:poi:3.17')
+  compile('org.apache.poi:poi-ooxml:3.17')
+  compile ('org.modelmapper:modelmapper:0.7.5')
+  compile ('com.fasterxml.jackson.core:jackson-databind:2.9.5')
+  compile ('com.fasterxml.jackson.core:jackson-core:2.9.5')
+  providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+  runtime('mysql:mysql-connector-java')
+  compileOnly('org.projectlombok:lombok')
+  testCompile('org.springframework.boot:spring-boot-starter-test')
+  testCompile('org.springframework.security:spring-security-test')
+  testCompile('org.dbunit:dbunit:2.5.4')
+  runtime files('src/test/resources/')
+}
+
+war {
+    enabled = true
+    archiveName 'myApp.war'
+}
